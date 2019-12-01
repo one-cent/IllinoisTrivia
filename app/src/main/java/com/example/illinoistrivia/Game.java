@@ -12,14 +12,21 @@ import android.widget.TextView;
 
 public class Game extends AppCompatActivity {
 
+    public int score = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setUpQuestion();
+    }
+
+    public void setUpQuestion() {
         if (QuestionsList.gameList.size() == 0) {
             finish();
         } else {
             setContentView(R.layout.activity_game);
 
+            final TextView scoreVal = findViewById(R.id.score);
             TextView QuestionText = findViewById(R.id.questionText);
 
             final RadioButton a1 = findViewById(R.id.answer1);
@@ -29,8 +36,9 @@ public class Game extends AppCompatActivity {
 
             Button submit = findViewById(R.id.submitAnswer);
 
-            Question current = QuestionsList.gameList.get(0);
+            final Question current = QuestionsList.gameList.get(0);
 
+            scoreVal.setText("Score: " + score);
             QuestionText.setText(current.questionText);
             a1.setText(current.answer1);
             a2.setText(current.answer2);
@@ -49,6 +57,19 @@ public class Game extends AppCompatActivity {
                                 return;
                             }
                         });
+                        builder.show();
+                    } else {
+                        if (a1.isChecked() && current.correctAnswer == 1) {
+                            score++;
+                        } else if (a2.isChecked() && current.correctAnswer == 2) {
+                            score++;
+                        } else if (a3.isChecked() && current.correctAnswer == 3) {
+                            score++;
+                        } else if (a4.isChecked() && current.correctAnswer == 4) {
+                            score++;
+                        }
+                        QuestionsList.gameList.remove(0);
+                        setUpQuestion();
                     }
                 }
             });
