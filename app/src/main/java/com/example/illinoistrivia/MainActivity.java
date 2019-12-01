@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -53,7 +54,13 @@ public class MainActivity extends AppCompatActivity {
                 if (!q10.isChecked() && !q20.isChecked() && !q50.isChecked() && !all.isChecked()) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     builder.setMessage("Please select a question amount to play with.");
-                    return;
+                    builder.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            return;
+                        }
+                    });
+                    builder.show();
                 } else {
                     int questionPool = 0;
                     if (general.isChecked()) {
@@ -67,22 +74,39 @@ public class MainActivity extends AppCompatActivity {
                     } else if (uiuc.isChecked()) {
                         questionPool += QuestionsList.uiuc.size();
                     }
-
                     if (q10.isChecked() && questionPool < 10) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                         builder.setMessage("Please select more categories.");
-                        return;
+                        builder.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        });
+                        builder.show();
                     } else if (q20.isChecked() && questionPool < 20) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                         builder.setMessage("Please select more categories.");
-                        return;
+                        builder.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        });
+                        builder.show();
                     } else if (q50.isChecked() && questionPool < 50) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                         builder.setMessage("Please select more categories.");
-                        return;
+                        builder.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        });
+                        builder.show();
+                    } else {
+                        QuestionsList.buildGameQuestions();
                     }
-
-
                 }
             }
         });

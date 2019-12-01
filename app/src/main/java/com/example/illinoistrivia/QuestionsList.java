@@ -1,6 +1,10 @@
 package com.example.illinoistrivia;
 
+import android.app.AlertDialog;
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class QuestionsList {
     public static ArrayList<Question> illinoisGeneral;
@@ -13,19 +17,21 @@ public class QuestionsList {
 
     public static ArrayList<Question> statePolitics;
 
+    public static ArrayList<Question> gameList;
+
     public static void addGenerals() {
         //1 - 5
-        illinoisGeneral.add(new Question("When was Illinois founded?", "", "", "", "", 2));
-        illinoisGeneral.add(new Question("How many counties are in Illinois?", "", "", "", "", 2));
-        illinoisGeneral.add(new Question("How many presidents are from Illinois?", "", "", "", "", 2));
-        illinoisGeneral.add(new Question("What is the second largest city in Illinois?", "", "", "", "", 2));
-        illinoisGeneral.add(new Question("What is the rough population of Illinois ?", "", "", "", "", 2));
+        illinoisGeneral.add(new Question("When was Illinois founded?", "-", "-", "1818", "-", 3));
+        illinoisGeneral.add(new Question("How many counties are in Illinois?", "102", "-", "-", "-", 1));
+        illinoisGeneral.add(new Question("How many presidents are from Illinois?", "-", "-", "2", "-", 3));
+        illinoisGeneral.add(new Question("What is the second largest city in Illinois?", "Aurora", "-", "-", "-", 1));
+        illinoisGeneral.add(new Question("What is the rough population of Illinois?", "", "", "", "13 Million", 4));
         //6 - 10
-        illinoisGeneral.add(new Question("What is Illinois named after?", "", "", "", "", 2));
-        illinoisGeneral.add(new Question("Illinois is the [blank] most populous state:", "", "", "", "", 2));
-        illinoisGeneral.add(new Question("Illinois has the [blank] largest state economy in the US:", "", "", "", "", 2));
-        illinoisGeneral.add(new Question("The Illinois state flag has which words on it?", "", "", "", "", 2));
-        illinoisGeneral.add(new Question("The Illinois state flag has which animal on it?", "", "", "", "", 2));
+        illinoisGeneral.add(new Question("What is Illinois named after?", "-", "-", "-", "A River", 4));
+        illinoisGeneral.add(new Question("Illinois is the [blank] most populous state:", "5th", "-", "-", "-", 1));
+        illinoisGeneral.add(new Question("Illinois has the [blank] largest state economy in the US:", "-", "5th", "-", "-", 2));
+        illinoisGeneral.add(new Question("The Illinois state flag has which words on it?", "-", "-", "State Sovereignty National Union", "-", 4));
+        illinoisGeneral.add(new Question("The Illinois state flag has which animal on it?", "-", "Eagle", "-", "-", 2));
     }
 
 
@@ -101,8 +107,69 @@ public class QuestionsList {
         statePolitics.add(new Question("filler?", "", "", "", "", 2));
     }
 
+    /*public static void buildGameQuestions(boolean pick1, boolean pick2, boolean pick3, boolean pick4, boolean pick5, int numb) {
+        Random random = new Random();
+        List<Question> current;
+
+        if (pick1) {
+            current = illinoisGeneral;
+        } else if (pick2) {
+            current = uiuc;
+        } else if (pick3) {
+            current = stateBlank;
+        } else if (pick4) {
+            current = sportTeams;
+        } else {
+            current = statePolitics;
+        }
+
+        int totalLists = 0;
+
+        if (pick1) {
+            totalLists++;
+        } if (pick2) {
+            totalLists++;
+        } if (pick3) {
+            totalLists++;
+        } if (pick4) {
+            totalLists++;
+        } if (pick5) {
+            totalLists++;
+        }
+
+        ArrayList<Question>[] viables = new ArrayList[totalLists];
+
+        if (pick1) {
+            viables[totalLists - 1] = illinoisGeneral;
+            totalLists--;
+        } if (pick2) {
+            viables[totalLists - 1] = uiuc;
+            totalLists--;
+        } if (pick3) {
+            viables[totalLists - 1] = stateBlank;
+            totalLists--;
+        } if (pick4) {
+            viables[totalLists - 1] = sportTeams;
+            totalLists--;
+        } if (pick5) {
+            viables[totalLists - 1] = statePolitics;
+        }
+
+        int externalCount = viables.length;
+
+        while (gameList.size() < numb) {
+            int randInt = random.nextInt(current.size());
+            for (int i = 0; i < gameList.size(); i++) {
+                if (current.get(randInt).equals(gameList.get(i))) {
+
+                }
+            }
+        }
+    }*/
+
     public static void buildGameQuestions() {
-
+        for (int i = 0; i < illinoisGeneral.size(); i++) {
+            gameList.add(i, illinoisGeneral.get(i));
+        }
     }
-
 }
