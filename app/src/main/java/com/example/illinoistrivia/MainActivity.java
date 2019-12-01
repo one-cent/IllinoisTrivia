@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
                     builder.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            return;
                         }
                     });
                     builder.show();
@@ -69,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
                     builder.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            return;
                         }
                     });
                     builder.show();
@@ -92,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
                         builder.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                return;
                             }
                         });
                         builder.show();
@@ -102,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
                         builder.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                return;
                             }
                         });
                         builder.show();
@@ -112,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
                         builder.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                return;
                             }
                         });
                         builder.show();
