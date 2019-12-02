@@ -15,17 +15,17 @@ public class EndScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end_screen);
 
-        System.out.println("Started End Screen");
-
         Button submit = findViewById(R.id.submitHighScore);
         Button mainMenu = findViewById(R.id.mainMenu);
 
-        TextView scoreHold = findViewById(R.id.score);
+        TextView scoreHold = findViewById(R.id.scoreDisplay);
 
         Intent get = getIntent();
         int score = get.getIntExtra("score", 0);
 
-        scoreHold.setText(score);
+        String scoreString = String.valueOf(score);
+
+        scoreHold.setText(scoreString);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,7 +37,8 @@ public class EndScreen extends AppCompatActivity {
         mainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent back = new Intent(EndScreen.this, MainActivity.class);
+                startActivity(back);
             }
         });
     }

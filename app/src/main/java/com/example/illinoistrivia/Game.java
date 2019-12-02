@@ -27,7 +27,7 @@ public class Game extends AppCompatActivity {
         if (MainActivity.gameList.size() == 0) {
             Intent out = new Intent(Game.this, EndScreen.class);
             out.putExtra("score", score);
-            System.out.println("going to send out intent");
+            System.out.println("going to send out intent - Score = " + score);
             startActivity(out);
         } else {
             setContentView(R.layout.activity_game);
