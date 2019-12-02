@@ -1,5 +1,6 @@
 package com.example.illinoistrivia;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -31,6 +32,9 @@ public class EndScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Doesn't do anything yet -- need to implement some sort of online interface.
+                AlertDialog.Builder alert = new AlertDialog.Builder(EndScreen.this);
+                alert.setMessage("Your score has been submitted!");
+                alert.show();
             }
         });
 
