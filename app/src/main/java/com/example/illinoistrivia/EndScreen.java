@@ -14,6 +14,9 @@ public class EndScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end_screen);
+
+        System.out.println("Started End Screen");
+
         Button submit = findViewById(R.id.submitHighScore);
         Button mainMenu = findViewById(R.id.mainMenu);
 
