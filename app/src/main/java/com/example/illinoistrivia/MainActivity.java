@@ -103,6 +103,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button highScorePage = findViewById(R.id.viewHS);
+
+        highScorePage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, HighScores.class);
+                startActivity(intent);
+            }
+        });
+
         startGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

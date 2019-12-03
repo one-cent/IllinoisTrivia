@@ -51,6 +51,42 @@ public class Game extends AppCompatActivity {
             a3.setText(current.answer3);
             a4.setText(current.answer4);
 
+            a1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    a2.setChecked(false);
+                    a3.setChecked(false);
+                    a4.setChecked(false);
+                }
+            });
+
+            a2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    a1.setChecked(false);
+                    a3.setChecked(false);
+                    a4.setChecked(false);
+                }
+            });
+
+            a3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    a2.setChecked(false);
+                    a1.setChecked(false);
+                    a4.setChecked(false);
+                }
+            });
+
+            a4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    a2.setChecked(false);
+                    a3.setChecked(false);
+                    a1.setChecked(false);
+                }
+            });
+
             submit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
