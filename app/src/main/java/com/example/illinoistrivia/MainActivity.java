@@ -15,6 +15,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -126,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                     });
                     builder.show();
 
-                } else if ((!q10.isChecked() || !q20.isChecked() || !q50.isChecked() || !all.isChecked()) && all.isChecked()) {
+                } else if ((!uiuc.isChecked() || !stateThings.isChecked() || !general.isChecked() || !politics.isChecked() || !sports.isChecked()) && all.isChecked()) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     builder.setMessage("Please make sure all categories are selected.");
                     builder.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -136,19 +138,23 @@ public class MainActivity extends AppCompatActivity {
                     });
                     builder.show();
                 } else {
-                    int questionPool = 0;
+                    ArrayList<Question> questionPool = new ArrayList<>();
                     if (general.isChecked()) {
-                        questionPool += illinoisGeneral.size();
-                    } else if (sports.isChecked()) {
-                        questionPool += sportTeams.size();
-                    } else if (politics.isChecked()) {
-                        questionPool += statePolitics.size();
-                    } else if (stateThings.isChecked()) {
-                        questionPool += stateBlank.size();
-                    } else if (uiuc.isChecked()) {
-                        questionPool += uiucQuestions.size();
+                        questionPool.addAll(illinoisGeneral);
                     }
-                    if (q10.isChecked() && questionPool < 10) {
+                    if (sports.isChecked()) {
+                        questionPool.addAll(sportTeams);
+                    }
+                    if (politics.isChecked()) {
+                        questionPool.addAll(statePolitics);
+                    }
+                    if (stateThings.isChecked()) {
+                        questionPool.addAll(stateBlank);
+                    }
+                    if (uiuc.isChecked()) {
+                        questionPool.addAll(uiucQuestions);
+                    }
+                    if (q10.isChecked() && questionPool.size() < 10) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                         builder.setMessage("Please select more categories.");
                         builder.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -157,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                         builder.show();
-                    } else if (q20.isChecked() && questionPool < 20) {
+                    } else if (q20.isChecked() && questionPool.size() < 20) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                         builder.setMessage("Please select more categories.");
                         builder.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -166,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                         builder.show();
-                    } else if (q50.isChecked() && questionPool < 50) {
+                    } else if (q50.isChecked() && questionPool.size() < 50) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                         builder.setMessage("Please select more categories.");
                         builder.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -176,7 +182,19 @@ public class MainActivity extends AppCompatActivity {
                         });
                         builder.show();
                     } else {
-                        buildGameQuestions();
+                        int gamesSize = 0;
+
+                        if (q10.isChecked()) {
+                            gamesSize = 10;
+                        } else if (q20.isChecked()) {
+                            gamesSize = 20;
+                        } else if (q50.isChecked()) {
+                            gamesSize = 50;
+                        } else {
+                            gamesSize = questionPool.size();
+                        }
+
+                        buildGameQuestions(gamesSize, questionPool);
                         Intent intent = new Intent(MainActivity.this, Game.class);
                         startActivity(intent);
                     }
@@ -273,9 +291,12 @@ public class MainActivity extends AppCompatActivity {
         statePolitics.add(new Question("filler?", "", "", "", "", 2));
     }
 
-    public static void buildGameQuestions() {
-        for (int i = 0; i < illinoisGeneral.size(); i++) {
-            gameList.add(i, illinoisGeneral.get(i));
+    public static void buildGameQuestions(int size, ArrayList<Question> list) {
+        Collections.shuffle(list);
+        for (int i = 0; i < size; i++) {
+            gameList.add(i, list.get(i));
+            list.remove(i);
         }
+        Collections.shuffle(gameList);
     }
 }
