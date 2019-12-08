@@ -203,12 +203,16 @@ public class MainActivity extends AppCompatActivity {
 
                         if (q10.isChecked()) {
                             gamesSize = 10;
+                            EndScreen.gameSize = gamesSize;
                         } else if (q20.isChecked()) {
                             gamesSize = 20;
+                            EndScreen.gameSize = gamesSize;
                         } else if (q50.isChecked()) {
                             gamesSize = 50;
+                            EndScreen.gameSize = gamesSize;
                         } else {
                             gamesSize = questionPool.size();
+                            EndScreen.gameSize = gamesSize;
                         }
 
                         buildGameQuestions(gamesSize, questionPool);
