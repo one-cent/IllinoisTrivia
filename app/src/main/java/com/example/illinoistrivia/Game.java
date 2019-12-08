@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -44,7 +45,41 @@ public class Game extends AppCompatActivity {
 
             final Question current = MainActivity.gameList.get(0);
 
-            scoreVal.setText("Score: " + score);
+            long mils = 10000;
+            final CountDownTimer countDownTimer = new CountDownTimer(mils, 1000) {
+                int temp = 11;
+
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    scoreVal.setText("Score: " + score + " - Time Remaining: " + temp);
+                    temp--;
+                }
+
+                @Override
+                public void onFinish() {
+                    if (a1.isChecked() && current.correctAnswer == 1) {
+                        score++;
+                    } else if (a2.isChecked() && current.correctAnswer == 2) {
+                        score++;
+                    } else if (a3.isChecked() && current.correctAnswer == 3) {
+                        score++;
+                    } else if (a4.isChecked() && current.correctAnswer == 4) {
+                        score++;
+                    }
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Game.this);
+                    builder.setMessage("You ran out of time! Any checked answer has been submitted!");
+                    builder.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            MainActivity.gameList.remove(0);
+                            setUpQuestion();
+                        }
+                    });
+                    builder.show();
+                }
+            };
+
+            scoreVal.setText("Score: " + score + " - Time Remaining: 10" );
             QuestionText.setText(current.questionText);
             a1.setText(current.answer1);
             a2.setText(current.answer2);
@@ -111,6 +146,7 @@ public class Game extends AppCompatActivity {
                             score++;
                         }
                         MainActivity.gameList.remove(0);
+                        countDownTimer.cancel();
                         setUpQuestion();
                     }
                 }
