@@ -49,11 +49,12 @@ public class Game extends AppCompatActivity {
 
             long mils = 10000;
             final CountDownTimer countDownTimer = new CountDownTimer(mils, 1000) {
-                int temp = 11;
+                int temp = 10;
 
                 @Override
                 public void onTick(long millisUntilFinished) {
                     timer.setText("Time Left: " + temp);
+                    temp--;
                 }
 
                 @Override
@@ -81,8 +82,10 @@ public class Game extends AppCompatActivity {
                 }
             };
 
-            scoreVal.setText("Score: " + score + " - Time Remaining: 10" );
+            scoreVal.setText("Score: " + score);
             QuestionText.setText(current.questionText);
+
+            countDownTimer.start();
             a1.setText(current.answer1);
             a2.setText(current.answer2);
             a3.setText(current.answer3);
