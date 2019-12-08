@@ -1,5 +1,6 @@
 package com.example.illinoistrivia;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -7,12 +8,24 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<Question> statePolitics;
 
     public static ArrayList<Question> gameList;
+
+    public static FirebaseAuth auth;
+
+    public static FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,90 +222,90 @@ public class MainActivity extends AppCompatActivity {
 
     public static void addGenerals() {
         //1 - 5
-        illinoisGeneral.add(new Question("When was Illinois founded?", "-", "-", "1818", "-", 3));
-        illinoisGeneral.add(new Question("How many counties are in Illinois?", "102", "-", "-", "-", 1));
-        illinoisGeneral.add(new Question("How many presidents are from Illinois?", "-", "-", "2", "-", 3));
-        illinoisGeneral.add(new Question("What is the second largest city in Illinois?", "Aurora", "-", "-", "-", 1));
-        illinoisGeneral.add(new Question("What is the rough population of Illinois?", "", "", "", "13 Million", 4));
+        illinoisGeneral.add(new Question("When was Illinois founded?", "1766", "1654", "1818", "1901", 3));
+        illinoisGeneral.add(new Question("How many counties are in Illinois?", "102", "86", "19", "34", 1));
+        illinoisGeneral.add(new Question("How many presidents are from Illinois?", "1", "6", "2", "9", 3));
+        illinoisGeneral.add(new Question("What is the second largest city in Illinois?", "Aurora", "Chicago", "Peoria", "Naperville", 1));
+        illinoisGeneral.add(new Question("What is the rough population of Illinois?", "7 Million", "9 Million", "16 Million", "13 Million", 4));
         //6 - 10
-        illinoisGeneral.add(new Question("What is Illinois named after?", "-", "-", "-", "A River", 4));
-        illinoisGeneral.add(new Question("Illinois is the [blank] most populous state:", "5th", "-", "-", "-", 1));
-        illinoisGeneral.add(new Question("Illinois has the [blank] largest state economy in the US:", "-", "5th", "-", "-", 2));
-        illinoisGeneral.add(new Question("The Illinois state flag has which words on it?", "-", "-", "State Sovereignty National Union", "-", 3));
-        illinoisGeneral.add(new Question("The Illinois state flag has which animal on it?", "-", "Eagle", "-", "-", 2));
+        illinoisGeneral.add(new Question("What is Illinois named after?", "A Crop", "A Horse", "A War Weapon", "A River", 4));
+        illinoisGeneral.add(new Question("Illinois is the [blank] most populous state:", "5th", "3rd", "7th", "9th", 1));
+        illinoisGeneral.add(new Question("Illinois has the [blank] largest state economy in the US:", "4th", "5th", "7th", "3rd", 2));
+        illinoisGeneral.add(new Question("The Illinois state flag has which words on it?", "December 7, 1787", "In God We Trust", "State Sovereignty National Union", "United We Stand, Divided We Fall", 3));
+        illinoisGeneral.add(new Question("The Illinois state flag has which animal on it?", "A Horse", "An Eagle", "A Snake", "An Elk", 2));
     }
 
 
     public static void addUIUC(){
         //1 - 5
-        uiucQuestions.add(new Question("When was the university founded?", "", "", "", "", 2));
-        uiucQuestions.add(new Question("How many students attend UIUC?", "", "", "", "", 2));
-        uiucQuestions.add(new Question("What is the university's famous chant?", "", "", "", "", 2));
-        uiucQuestions.add(new Question("When was 'Hail to the Orange' written?", "", "", "", "", 2));
-        uiucQuestions.add(new Question("Which of the following words DOES NOT appear on UIUC's seal?", "", "", "", "", 2));
+        uiucQuestions.add(new Question("When was the university founded?", "1834", "1867", "1892", "1843", 2));
+        uiucQuestions.add(new Question("The campus library system possesses the [blank] - largest university library in the UnitedStates!", "It's the largest, duh!", "second", "third", "fourth", 2));
+        uiucQuestions.add(new Question("The University is home to which of the following?", "Fastest Supercomputer", "smallest corn husk", "Oldest Penny", "Slowest Wifi", 1));
+        uiucQuestions.add(new Question("How many buildings are on campus?", "263", "421", "651", "158", 3));
+        uiucQuestions.add(new Question("The University is home to roughly how many undergraduates this fall?", "16,319", "48,756", "51,196", "33,850", 4));
         //6 - 10
-        uiucQuestions.add(new Question("What is the university's motto?", "", "", "", "", 2));
-        uiucQuestions.add(new Question("Who is the chancellor of the university?", "", "", "", "", 2));
-        uiucQuestions.add(new Question("Which of the following companies WAS NOT created by a UIUC graduate?", "", "", "", "", 2));
-        uiucQuestions.add(new Question("What does UGL stand for?", "", "", "", "", 2));
-        uiucQuestions.add(new Question("What piece of art do UIUC students Traditionally Touch for Good Luck?", "", "", "", "", 2));
+        uiucQuestions.add(new Question("What University President requested squirrels be brought to campus?", "Michael Hogan", "James J. Stukel", "Andrew S. Draper", "Stanley O. Ikenberry", 3));
+        uiucQuestions.add(new Question("Who is the chancellor of the university?", "Andreas C. Cangellaris", "Robert J. Jones", "Andreeseesen Horowitz", "Abe Saperstein", 2));
+        uiucQuestions.add(new Question("How much was tuition at the University of Illinois in 1868 per year?", "$56", "$100", "$204", "$15", 4));
+        uiucQuestions.add(new Question("What does UGL stand for?", "Undergraduate Library", "Under Grainger Library", "Ugly", "Urbana's Giant Library", 1));
+        uiucQuestions.add(new Question("What  do UIUC students Traditionally Touch for Good Luck?", "A bust of Abraham Lincoln", "Morrow Plots", "The Alma Mater", "Squirrels", 1));
     }
 
     public static void addStateBlank(){
         //1 - 5
-        stateBlank.add(new Question("What is the state animal?", "", "", "", "", 2));
-        stateBlank.add(new Question("What is the state amphibian?", "", "", "", "", 2));
-        stateBlank.add(new Question("What is the state bird?", "", "", "", "", 2));
-        stateBlank.add(new Question("What is the state reptile?", "", "", "", "", 2));
-        stateBlank.add(new Question("What is the state vegetable?", "", "", "", "", 2));
+        stateBlank.add(new Question("What is the state animal?", "White-Tailed Deer", "Morgan Horse", "Ring-Tailed Cat", "Boykin Spaniel", 1));
+        stateBlank.add(new Question("What is the state amphibian?", "Hyla Exima", "Hyla Cinerea", "Ambystoma Tingrinum", "Bufo Speciosus", 3));
+        stateBlank.add(new Question("What is the state bird?", "Cactus Wren", "Lark Bunting", "American Robin", "Northern Cardinal", 4));
+        stateBlank.add(new Question("Illinois is home to the largest [blank].", "Fire Hydrant", "Bottle of Ketchup", "Toy Lego", "Penny", 2));
+        stateBlank.add(new Question("What is the state vegetable?", "Sweet Corn", "Sweet Potato", "White Potato", "Collard Greens", 1));
         //6 - 10
-        stateBlank.add(new Question("What is the state fish?", "", "", "", "", 2));
-        stateBlank.add(new Question("What is the state flower?", "", "", "", "", 2));
-        stateBlank.add(new Question("What is the state fossil?", "", "", "", "", 2));
-        stateBlank.add(new Question("What is the state fruit?", "", "", "", "", 2));
-        stateBlank.add(new Question("What is the state insect?", "", "", "", "", 2));
+        stateBlank.add(new Question("What is the state fish?", "Largemouth Bass", "Cutthroat Trout", "Bluegill", "Striped Bass", 3));
+        stateBlank.add(new Question("What is the state flower?", "Hibiscus", "Peony", "Wild Prarie Rose", "Purple Violet", 4));
+        stateBlank.add(new Question("What is the state fossil?", "Primitive Whale (Basilosaurus Cetoides)", "Tully Monster (Tullimonstrum Gregarium)", "Saber-Toothed Cat (Smilodon Californicus)", "Petrified  Palmwood (Palmoxylon)", 2));
+        stateBlank.add(new Question("What is the state fruit?", "Blackberry", "Huckleberry", "Scuppernong Grape", "Goldrush Apple", 4));
+        stateBlank.add(new Question("What is the state insect?", "European Mantis", "7-Spotted Ladybug", "Monarch Butterfly", "Say's Firefly", 3));
         //11-15
-        stateBlank.add(new Question("What is the state mineral?", "", "", "", "", 2));
-        stateBlank.add(new Question("What is the state motto?", "", "", "", "", 2));
-        stateBlank.add(new Question("What is the state slogan?", "", "", "", "", 2));
-        stateBlank.add(new Question("What is the state nickname?", "", "", "", "", 2));
-        stateBlank.add(new Question("What is the state pie?", "", "", "", "", 2));
+        stateBlank.add(new Question("What is the state mineral?", "Fluorite", "Hematite", "Sillimanite", "Coal", 1));
+        stateBlank.add(new Question("What is the state motto?", "Ditat Deus (Latin, God Enriches)", "Eureka (Greek, I Have Found It)", "Wisdom, Justice, and Moderation", "State Sovereignty, National Union", 4));
+        stateBlank.add(new Question("What is the state slogan?", "Still Revolutionary, Full of Surpirses", "Are You Up For Amazing?", "Life Changing, Fields of Opportunity", "The Natural State, The Land of Opportunity", 2));
+        stateBlank.add(new Question("What is the state nickname?", "The Prairie State", "The Gem State", "The Hoosier State", "The Old Line State", 1));
+        stateBlank.add(new Question("What is the state pie?", "Key Lime Pie", "Pumpkin Pie", "Buttermilk Pie", "Mud Pie", 2));
         //16-20
-        stateBlank.add(new Question("What is the state prairie grass?", "", "", "", "", 2));
-        stateBlank.add(new Question("What is the state reptile?", "", "", "", "", 2));
-        stateBlank.add(new Question("What is the state snack food?", "", "", "", "", 2));
-        stateBlank.add(new Question("What is the state song?", "", "", "", "", 2));
-        stateBlank.add(new Question("What is the state tree?", "", "", "", "", 2));
+        stateBlank.add(new Question("What is the state prairie grass?", "Little Bluestem Grass", "Blue Grama Grass", "Big Bluestem", "Bluebunch Wheatgrass", 3));
+        stateBlank.add(new Question("How many state capitals has Illinois had?", "1", "2", "3", "4", 3));
+        stateBlank.add(new Question("What is the state snack food?", "Popcorn", "Potatoe Chips", "Twizzlers", "Cupcakes", 1));
+        stateBlank.add(new Question("What is the state song?", "The Illinois March", "Illinois", "Old Folks at Home", "The Song of Illinois", 2));
+        stateBlank.add(new Question("What is the state tree?", "Longlead Pine", "Pandanus", "Loblolly Pine", "White Oak", 4));
     }
 
     public static void addSports() {
         //1 - 5
-        sportTeams.add(new Question("How many years was the Cubs' championship drought?", "", "", "", "", 2));
-        sportTeams.add(new Question("When did the White Sox last win the series?", "", "", "", "", 2));
-        sportTeams.add(new Question("When did the Bears last win the Super Bowl?", "", "", "", "", 2));
-        sportTeams.add(new Question("How many years between 1990 and 2000 were the Bulls the NBA champions?", "", "", "", "", 2));
-        sportTeams.add(new Question("The Curse of the [blank] was supposedly the cause of the cubs championship drought?", "", "", "", "", 2));
+        sportTeams.add(new Question("How many years was the Cubs' championship drought?", "97 Years", "8 Years", "71 Years", "108 Years", 4));
+        sportTeams.add(new Question("When did the White Sox last win the series?", "2001", "2005", "1998", "2003", 2));
+        sportTeams.add(new Question("When did the Bears last win the Super Bowl?", "1974", "2000", "1986", "1993", 3));
+        sportTeams.add(new Question("How many years between 1990 and 2000 were the Bulls the NBA champions?", "6", "3", "5", "7", 1));
+        sportTeams.add(new Question("The Curse of the [blank] was supposedly the cause of the cubs championship drought?", "Billy Goat", "White Sock", "Missing Spoon", "Boston Balloon", 1));
         //6 - 10
-        sportTeams.add(new Question("The Bears play at [blank] Field?", "", "", "", "", 2));
-        sportTeams.add(new Question("What is the name of Chicago's professional soccer team?", "", "", "", "", 2));
-        sportTeams.add(new Question("WThe Cubs play at [blank] Field?", "", "", "", "", 2));
-        sportTeams.add(new Question("Where do the White Sox play?", "", "", "", "", 2));
-        sportTeams.add(new Question("Who are the Bears' greatest rivals?", "", "", "", "", 2));
+        sportTeams.add(new Question("The Bears play at [blank] Field?", "CenturyLink", "Soldier", "Ford", "Lincoln Financial Field", 2));
+        sportTeams.add(new Question("What is the name of Chicago's professional soccer team?", "Chicago Dogs", "Windy City ThunderBolts", "Chicago Fire", "Chicago Lightning", 3));
+        sportTeams.add(new Question("WThe Cubs play at [blank] Field?", "Wrigley", "Citi", "Chase", "Tropicana", 1));
+        sportTeams.add(new Question("Where do the White Sox play?", "Busch Stadium", "Guaranteed Rate Field", "T-Mobile Park", "Coors Field", 2));
+        sportTeams.add(new Question("Who are the Chicago Blackhawks' greatest rivals?", "Colorado Avalanche", "San Jose Sharks", "Pittsburgh Penguins", "Arizona Coyotes", 3));
     }
 
     public static void addPolitics() {
         //1 - 5
-        statePolitics.add(new Question("Who is the state Speaker of the House?", "", "", "", "", 2));
-        statePolitics.add(new Question("Who is the state governor?", "", "", "", "", 2));
-        statePolitics.add(new Question("Who is the secretary of State?", "", "", "", "", 2));
-        statePolitics.add(new Question("Which party maintains a majority in the state house?", "", "", "", "", 2));
-        statePolitics.add(new Question("Which party maintains a majority in the state senate?", "", "", "", "", 2));
+        statePolitics.add(new Question("Who is the state Speaker of the House?", "David Ralston", "Scott Saiki", "Michael Madigan", "Scott Bedke", 3));
+        statePolitics.add(new Question("Who is the state governor?", "Kay Ivey", "J.B. Pritzker", "Ned Lamont", "John Carney", 2));
+        statePolitics.add(new Question("Who is the secretary of State?", "Mike Pompeo", "William Barr", "Nikki Haley", "Jennings Randolph", 1));
+        statePolitics.add(new Question("What new economic program did China's Mao Zedong announce in 1958?", "The Worker's Awakening", "The Great Leap Forward", "The Enlightened Transformation", "Trickle-Down Economics", 2));
+        statePolitics.add(new Question("Who ran for President of The United States with the slogan 'A chicken in every pot and a car in every garage'?", "William McKinley", "Woodrow Wilson", "Herbert Hoover", "Calvin Coolidge", 3));
         //6-10
-        statePolitics.add(new Question("filler?", "", "", "", "", 2));
-        statePolitics.add(new Question("filler?", "", "", "", "", 2));
-        statePolitics.add(new Question("filler?", "", "", "", "", 2));
-        statePolitics.add(new Question("filler?", "", "", "", "", 2));
-        statePolitics.add(new Question("filler?", "", "", "", "", 2));
+        statePolitics.add(new Question("According to a 2001 poll, who was he most popular politician in Serbia?", "Zoran Djindjic", "Vojislav Kostunica", "Mladjan Dinkic", "Goran Svilanovic", 2));
+        statePolitics.add(new Question("What U.S. President refused to use the telephone while in office?", "Herbert Hoover", "Richard Nixon", "Calvin Coolidge", "Warren G. Harding", 3));
+        statePolitics.add(new Question("What counbtry held its first democratic elections on January 30, 2005?", "Serbia", "Iraq", "Afghanistan", "Tunisia", 2));
+        statePolitics.add(new Question("What German political leader was known as the 'Iron Chancellor?", "Hermann Muller", "Adolf Hitler", "Otto Von Bismarck", "Helmut Schmidt", 3));
+        statePolitics.add(new Question("What U.S. President won the Nobel Peace Prize for his role as a peacemaker in the Russo-Japanese War?", "Grover Cleveland", "Franklin D. Roosevelt", "Jimmy Carter", "Theodore Roosevelt", 4));
     }
 
     public static void buildGameQuestions(int size, ArrayList<Question> list) {
@@ -299,4 +316,6 @@ public class MainActivity extends AppCompatActivity {
         }
         Collections.shuffle(gameList);
     }
+
+
 }
