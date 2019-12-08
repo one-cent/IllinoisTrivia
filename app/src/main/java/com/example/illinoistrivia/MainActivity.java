@@ -295,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
         Collections.shuffle(list);
         for (int i = 0; i < size; i++) {
             gameList.add(i, list.get(0));
-            list.remove(i);
+            list.remove(0);
         }
         Collections.shuffle(gameList);
     }

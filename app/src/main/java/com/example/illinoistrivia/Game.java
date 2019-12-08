@@ -45,14 +45,15 @@ public class Game extends AppCompatActivity {
 
             final Question current = MainActivity.gameList.get(0);
 
+            final TextView timer = findViewById(R.id.timer);
+
             long mils = 10000;
             final CountDownTimer countDownTimer = new CountDownTimer(mils, 1000) {
                 int temp = 11;
 
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    scoreVal.setText("Score: " + score + " - Time Remaining: " + temp);
-                    temp--;
+                    timer.setText("Time Left: " + temp);
                 }
 
                 @Override
@@ -66,6 +67,7 @@ public class Game extends AppCompatActivity {
                     } else if (a4.isChecked() && current.correctAnswer == 4) {
                         score++;
                     }
+                    timer.setText("Time Left: 0");
                     AlertDialog.Builder builder = new AlertDialog.Builder(Game.this);
                     builder.setMessage("You ran out of time! Any checked answer has been submitted!");
                     builder.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
