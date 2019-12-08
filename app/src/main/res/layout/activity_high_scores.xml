@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E84A27"
     tools:context=".HighScores">
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,21 +21,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="#13294B"
                 android:text="10 Question High Scores"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="#13294B"
                 android:id="@+id/firstPlaceTen"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="#13294B"
                 android:id="@+id/secondPlaceTen"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="#13294B"
                 android:id="@+id/thirdPlaceTen"/>
         </LinearLayout>
         <LinearLayout
@@ -47,21 +52,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="#13294B"
                 android:text="20 Question High Scores"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="#13294B"
                 android:id="@+id/firstPlaceTwenty"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="#13294B"
                 android:id="@+id/secondPlaceTwenty"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="#13294B"
                 android:id="@+id/thirdPlaceTwenty"/>
         </LinearLayout>
         <LinearLayout
@@ -74,21 +83,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="#13294B"
                 android:text="50 Question High Scores"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="#13294B"
                 android:id="@+id/firstPlaceFifty"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="#13294B"
                 android:id="@+id/secondPlaceFifty"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="#13294B"
                 android:id="@+id/thirdPlaceFifty"/>
         </LinearLayout>
         <LinearLayout
@@ -101,21 +114,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="#13294B"
                 android:text="All Questions High Scores"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="#13294B"
                 android:id="@+id/firstPlaceAll"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="#13294B"
                 android:id="@+id/secondPlaceAll"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="#13294B"
                 android:id="@+id/thirdPlaceAll"/>
         </LinearLayout>
         <Button
@@ -123,6 +140,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/backToMainMenu"
+            android:background="#13294B"
+            android:textColor="#E84A27"
             android:layout_gravity="center_horizontal"
             android:text="Main Menu"/>
     </LinearLayout>

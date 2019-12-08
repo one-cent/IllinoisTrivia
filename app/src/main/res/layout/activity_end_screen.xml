@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E84A27"
     tools:context=".EndScreen">
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +16,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Your Score Was:"
-            android:textSize="40sp"/>
+            android:textAllCaps="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#13294B"
+            android:textSize="45sp"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,23 +28,36 @@
             android:text="0"
             android:textAlignment="center"
             android:gravity="center"
+            android:textColor="#13294B"
             android:textSize="150sp"
             android:layout_weight="3"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:layout_gravity="center"
             android:layout_weight="1">
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Submit Score"
+                android:textColor="#E84A27"
+                android:background = "#13294B"
+                android:layout_weight="1"
                 android:id="@+id/submitHighScore"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Return to Main Menu"
+                android:textColor="#E84A27"
+                android:layout_weight="1"
+                android:background = "#13294B"
                 android:id="@+id/mainMenu"/>
         </LinearLayout>
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

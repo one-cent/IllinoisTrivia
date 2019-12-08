@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E84A27"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -27,21 +28,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tenQuestions"
+                android:textColor = "#13294B"
                 android:text="10 Questions"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="20 Questions"
+                android:textColor = "#13294B"
                 android:id="@+id/twentyQuestions"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="50 Questions"
+                android:textColor = "#13294B"
                 android:id="@+id/fiftyQuestions"/>
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="All Questions"
+                android:textColor = "#13294B"
                 android:id="@+id/allQuestions"/>
         </LinearLayout>
         <LinearLayout
@@ -53,47 +58,63 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Choose the Categories to Pick From"/>
+                android:text="Choose What Categories to Pick From"/>
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="General State Facts"
+                android:textColor = "#13294B"
                 android:id="@+id/generalFactsCheck"/>
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="UIUC Facts"
+                android:text="UIUC"
+                android:textColor = "#13294B"
                 android:id="@+id/schoolFactsCheck"/>
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Official State [blank] Facts"
+                android:text="Official State Facts"
+                android:textColor = "#13294B"
                 android:id="@+id/stateThingCheck"/>
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="State Sport Team Facts"
+                android:text="Illinois Sports"
+                android:textColor = "#13294B"
                 android:id="@+id/stateTeamsCheck"/>
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="State Politics Facts"
+                android:text="Politics"
+                android:textColor = "#13294B"
                 android:id="@+id/statePoliticsCheck"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:weightSum="3">
             <Button
                 android:id="@+id/startGame"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Start New Game"/>
+                android:text="Start New Game"
+                android:textColor="#E84A27"
+                android:layout_weight="1"
+                android:background = "#13294B"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
             <Button
                 android:id="@+id/viewHS"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="View High Scores"/>
+                android:text="View High Scores"
+                android:layout_weight="1"
+                android:textColor="#E84A27"
+                android:background = "#13294B"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
