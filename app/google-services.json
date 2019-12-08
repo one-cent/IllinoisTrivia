@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1078835129136",
+    "firebase_url": "https://illinoistrivia.firebaseio.com",
+    "project_id": "illinoistrivia",
+    "storage_bucket": "illinoistrivia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078835129136:android:aff7fbca5bdbbd0ad8b6f5",
+        "android_client_info": {
+          "package_name": "com.example.illinoistrivia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1078835129136-2bc1b724hn1c0ajp8v14621bqsgotcul.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLlutxfYxq7LOTLFo7HEGeZDk-DORsLh8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1078835129136-2bc1b724hn1c0ajp8v14621bqsgotcul.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
