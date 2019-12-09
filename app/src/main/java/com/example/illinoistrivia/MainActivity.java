@@ -298,18 +298,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void addPolitics() {
-        //1 - 5
+        //1-5
         statePolitics.add(new Question("Who is the state Speaker of the House?", "David Ralston", "Scott Saiki", "Michael Madigan", "Scott Bedke", 3));
         statePolitics.add(new Question("Who is the state governor?", "Kay Ivey", "J.B. Pritzker", "Ned Lamont", "John Carney", 2));
-        statePolitics.add(new Question("Who is the secretary of State?", "Mike Pompeo", "William Barr", "Nikki Haley", "Jennings Randolph", 1));
-        statePolitics.add(new Question("What new economic program did China's Mao Zedong announce in 1958?", "The Worker's Awakening", "The Great Leap Forward", "The Enlightened Transformation", "Trickle-Down Economics", 2));
-        statePolitics.add(new Question("Who ran for President of The United States with the slogan 'A chicken in every pot and a car in every garage'?", "William McKinley", "Woodrow Wilson", "Herbert Hoover", "Calvin Coolidge", 3));
+        statePolitics.add(new Question("Who is the lieutenant governor of Illinois", "Juliana Stratton ", "Jesse White ", "J. B. Pritzker", "Kwame Raoul", 1));
+        statePolitics.add(new Question("Who is the Secretary of State of Illinois?", "David Ralston", "Ned Lamont", "Michael Madigan", "Jesse White", 3));
+        statePolitics.add(new Question("How many Illinois governors have been charged with crimes during or after their governorships?", "2", "8", "6", "4", 3));
         //6-10
-        statePolitics.add(new Question("According to a 2001 poll, who was he most popular politician in Serbia?", "Zoran Djindjic", "Vojislav Kostunica", "Mladjan Dinkic", "Goran Svilanovic", 2));
-        statePolitics.add(new Question("What U.S. President refused to use the telephone while in office?", "Herbert Hoover", "Richard Nixon", "Calvin Coolidge", "Warren G. Harding", 3));
-        statePolitics.add(new Question("What counbtry held its first democratic elections on January 30, 2005?", "Serbia", "Iraq", "Afghanistan", "Tunisia", 2));
-        statePolitics.add(new Question("What German political leader was known as the 'Iron Chancellor?", "Hermann Muller", "Adolf Hitler", "Otto Von Bismarck", "Helmut Schmidt", 3));
-        statePolitics.add(new Question("What U.S. President won the Nobel Peace Prize for his role as a peacemaker in the Russo-Japanese War?", "Grover Cleveland", "Franklin D. Roosevelt", "Jimmy Carter", "Theodore Roosevelt", 4));
+        statePolitics.add(new Question("What was Rod Blagojevich impeacehd for?", "Corruption", "Money Laundering", "DUI", "Affair", 1));
+        statePolitics.add(new Question("How many people are in the State House of Representatives?", "82", "243", "118", "108", 3));
+        statePolitics.add(new Question("How manny people are in the State Senate", "8 ", "60", "100", "59", 4));
+        statePolitics.add(new Question("What is the state capital of Illinois?", "Springfield", "Aurora", "Chicago", "Mundelein", 1));
+        statePolitics.add(new Question("What is the majority party of the Illinois House and Senate?", "Republican", "Libertarian", "Democratic", "Green", 3));
     }
 
     public static void buildGameQuestions(int size, ArrayList<Question> list) {
