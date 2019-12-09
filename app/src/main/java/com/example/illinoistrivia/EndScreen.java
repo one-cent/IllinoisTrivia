@@ -11,10 +11,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonObject;
@@ -49,7 +51,7 @@ public class EndScreen extends AppCompatActivity {
         scoreHold.setText(scoreString);
 
         // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
+        final RequestQueue queue = Volley.newRequestQueue(this);
         final String url ="https://illinoistrivia.firebaseio.com/scores/scoreList.json";
 
         final JsonParser parser = new JsonParser();
@@ -120,18 +122,100 @@ public class EndScreen extends AppCompatActivity {
                         scoresArray[2] = name.getText() + ": " + score;
                     }
 
-                    if (gameSize == 10) {
+                    /*if (gameSize == 10) {
+                        scores.remove("one10");
+                        scores.addProperty("one10", scoresArray[0]);
 
+                        scores.remove("two10");
+                        scores.addProperty("two10", scoresArray[1]);
+
+                        scores.remove("three10");
+                        scores.addProperty("three10", scoresArray[2]);
                     } else if (gameSize == 20) {
+                        scores.remove("one20");
+                        scores.addProperty("one20", scoresArray[0]);
 
+                        scores.remove("two20");
+                        scores.addProperty("two20", scoresArray[1]);
+
+                        scores.remove("three20");
+                        scores.addProperty("three20", scoresArray[2]);
                     } else if (gameSize == 50) {
+                        scores.remove("one50");
+                        scores.addProperty("one50", scoresArray[0]);
 
+                        scores.remove("two50");
+                        scores.addProperty("two50", scoresArray[1]);
+
+                        scores.remove("three50");
+                        scores.addProperty("three50", scoresArray[2]);
                     } else {
+                        scores.remove("oneAll");
+                        scores.addProperty("oneAll", scoresArray[0]);
 
+                        scores.remove("twoAll");
+                        scores.addProperty("twoAll", scoresArray[1]);
+
+                        scores.remove("threeAll");
+                        scores.addProperty("threeAll", scoresArray[2]);
                     }
 
+                     */
 
+                    StringRequest putRequest = new StringRequest(Request.Method.PUT, url,
+                            new Response.Listener<String>()
+                            {
+                                @Override
+                                public void onResponse(String response) {
+                                    // response
+                                    Log.d("Response", response);
+                                }
+                            },
+                            new Response.ErrorListener()
+                            {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    // error
+                                    Log.d("Error.Response", error.toString());
+                                }
+                            }
+                    ) {
+                        @Override
+                        protected Map<String, String> getParams()
+                        {
+                            Map<String, String>  params = new HashMap<String, String> ();
 
+                            if (gameSize == 10) {
+                                params.put("one10", scoresArray[0]);
+
+                                params.put("two10", scoresArray[1]);
+
+                                params.put("three10", scoresArray[2]);
+                            } else if (gameSize == 20) {
+                                params.put("one20", scoresArray[0]);
+
+                                params.put("two20", scoresArray[1]);
+
+                                params.put("three20", scoresArray[2]);
+                            } else if (gameSize == 50) {
+                                params.put("one50", scoresArray[0]);
+
+                                params.put("two50", scoresArray[1]);
+
+                                params.put("three50", scoresArray[2]);
+                            } else {
+                                params.put("oneAll", scoresArray[0]);
+
+                                params.put("twoAll", scoresArray[1]);
+
+                                params.put("threeAll", scoresArray[2]);
+                            }
+
+                            return params;
+                        }
+                    };
+
+                    queue.add(putRequest);
                 }
             }
         });
