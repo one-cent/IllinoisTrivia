@@ -27,12 +27,14 @@ public class EndScreen extends AppCompatActivity {
 
     public static int gameSize;
 
+    public static JsonObject scores;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end_screen);
 
-        Button submit = findViewById(R.id.submitHighScore);
+        final Button submit = findViewById(R.id.submitHighScore);
         Button mainMenu = findViewById(R.id.mainMenu);
 
         final EditText name = findViewById(R.id.nameEnter);
@@ -46,412 +48,91 @@ public class EndScreen extends AppCompatActivity {
 
         scoreHold.setText(scoreString);
 
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        final String url ="https://illinoistrivia.firebaseio.com/scores/scoreList.json";
+
+        final JsonParser parser = new JsonParser();
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        scores = (JsonObject) parser.parse(response);
+                        Log.d("Tag", "String: " + response);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                submit.setText(error.toString());
+            }
+        });
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+        final String[] scoresArray = new String[3];
+
+        if (gameSize == 10) {
+            scoresArray[0] = scores.get("one10").getAsString();
+            scoresArray[1] = scores.get("two10").getAsString();
+            scoresArray[2] = scores.get("three10").getAsString();
+        } else if (gameSize == 20) {
+            scoresArray[0] = scores.get("one20").getAsString();
+            scoresArray[1] = scores.get("two20").getAsString();
+            scoresArray[2] = scores.get("three20").getAsString();
+        } else if (gameSize == 50) {
+            scoresArray[0] = scores.get("one50").getAsString();
+            scoresArray[1] = scores.get("two50").getAsString();
+            scoresArray[2] = scores.get("three50").getAsString();
+        } else {
+            scoresArray[0] = scores.get("oneAll").getAsString();
+            scoresArray[1] = scores.get("twoAll").getAsString();
+            scoresArray[2] = scores.get("threeAll").getAsString();
+        }
+
+        int[] relScores = new int[3];
+        relScores[0] = Integer.parseInt(scoresArray[0].split(" ")[1]);
+        relScores[1] = Integer.parseInt(scoresArray[1].split(" ")[1]);
+        relScores[2] = Integer.parseInt(scoresArray[2].split(" ")[1]);
+
+        final int[] relaventScores = relScores;
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Doesn't do anything yet -- need to implement some sort of online interface.
-                AlertDialog.Builder alert = new AlertDialog.Builder(EndScreen.this);
-                alert.setMessage("Your score has been submitted!");
-                alert.show();
-
-                // Instantiate the RequestQueue.
-                final RequestQueue queue = Volley.newRequestQueue(EndScreen.this);
-                String url ="https://illinoistrivia.firebaseio.com/scores/scoreList.json";
-
-                final JsonParser parser = new JsonParser();
-
-                // Request a string response from the provided URL.
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                JsonObject object;
-                                object = (JsonObject) parser.parse(response);
-
-                                if (gameSize == 10) {
-                                    String first = object.get("one10").getAsString();
-                                    String second = object.get("two10").getAsString();
-                                    String third = object.get("three10").getAsString();
-
-                                    String[] firstA = first.split(" ");
-                                    String[] secondA = second.split(" ");
-                                    String[] thirdA = third.split(" ");
-
-                                    int firstInt = Integer.parseInt(firstA[1]);
-                                    int secondInt = Integer.parseInt(secondA[1]);
-                                    int thirdInt = Integer.parseInt(thirdA[1]);
-                                    int[] scores = new int[] {firstInt, secondInt, thirdInt};
-
-                                    if (score > scores[0]) {
-                                        String temp1 = first;
-                                        String temp2 = second;
-                                        first = name.getText() + ": " + score;
-                                        second = temp1;
-                                        third = temp2;
-                                    } else if (score > scores[1]) {
-                                        String temp1 = second;
-                                        second = name.getText() + ": " + score;
-                                        third = temp1;
-                                    } else if (score > scores[2]) {
-                                        third = name.getText() + ": " + score;
-                                    }
-
-                                    String url1 = "https://illinoistrivia.firebaseio.com/scores/scoreList/one10";
-                                    String url2 = "https://illinoistrivia.firebaseio.com/scores/scoreList/two10";
-                                    String url3 = "https://illinoistrivia.firebaseio.com/scores/scoreList/three10";
-
-                                    final String f = first;
-                                    final String s = second;
-                                    final String t = third;
-
-                                    StringRequest submit1 = new StringRequest(Request.Method.PUT, url1, new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response) {
-                                            Log.d("Works", "Submission worked");
-                                        }
-                                    }, new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Log.d("Tag", "Ouch");
-                                        }
-                                    }) {
-                                        protected Map<String, String> getParams() {
-                                            Map<String, String> MyData = new HashMap<>();
-                                            MyData.put("one10", f);
-                                            return MyData;
-                                        }
-                                    };
-
-                                    StringRequest submit2 = new StringRequest(Request.Method.PUT, url2, new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response) {
-                                            Log.d("Works", "Submission worked");
-                                        }
-                                    }, new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Log.d("Tag", "Ouch");
-                                        }
-                                    }) {
-                                        protected Map<String, String> getParams() {
-                                            Map<String, String> MyData = new HashMap<>();
-                                            MyData.put("two10", s);
-                                            return MyData;
-                                        }
-                                    };
-
-                                    StringRequest submit3 = new StringRequest(Request.Method.PUT, url3, new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response) {
-                                            Log.d("Works", "Submission worked");
-                                        }
-                                    }, new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Log.d("Tag", "Ouch");
-                                        }
-                                    }) {
-                                        protected Map<String, String> getParams() {
-                                            Map<String, String> MyData = new HashMap<>();
-                                            MyData.put("three10", t);
-                                            return MyData;
-                                        }
-                                    };
-
-                                    queue.add(submit1);
-                                    queue.add(submit2);
-                                    queue.add(submit3);
-                                } else if (gameSize == 20) {
-                                    String first = object.get("one20").getAsString();
-                                    String second = object.get("two20").getAsString();
-                                    String third = object.get("three20").getAsString();
-
-                                    String[] firstA = first.split(" ");
-                                    String[] secondA = second.split(" ");
-                                    String[] thirdA = third.split(" ");
-
-                                    int firstInt = Integer.parseInt(firstA[1]);
-                                    int secondInt = Integer.parseInt(secondA[1]);
-                                    int thirdInt = Integer.parseInt(thirdA[1]);
-                                    int[] scores = new int[] {firstInt, secondInt, thirdInt};
-
-                                    if (score > scores[0]) {
-                                        String temp1 = first;
-                                        String temp2 = second;
-                                        first = name.getText() + ": " + score;
-                                        second = temp1;
-                                        third = temp2;
-                                    } else if (score > scores[1]) {
-                                        String temp1 = second;
-                                        second = name.getText() + ": " + score;
-                                        third = temp1;
-                                    } else if (score > scores[2]) {
-                                        third = name.getText() + ": " + score;
-                                    }
-
-                                    String url1 = "https://illinoistrivia.firebaseio.com/scores/scoreList/one20";
-                                    String url2 = "https://illinoistrivia.firebaseio.com/scores/scoreList/two20";
-                                    String url3 = "https://illinoistrivia.firebaseio.com/scores/scoreList/three20";
-
-                                    final String f = first;
-                                    final String s = second;
-                                    final String t = third;
-
-                                    StringRequest submit1 = new StringRequest(Request.Method.PUT, url1, new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response) {
-                                            Log.d("Works", "Submission worked");
-                                        }
-                                    }, new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Log.d("Tag", "Ouch");
-                                        }
-                                    }) {
-                                        protected Map<String, String> getParams() {
-                                            Map<String, String> MyData = new HashMap<>();
-                                            MyData.put("one20", f);
-                                            return MyData;
-                                        }
-                                    };
-
-                                    StringRequest submit2 = new StringRequest(Request.Method.PUT, url2, new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response) {
-                                            Log.d("Works", "Submission worked");
-                                        }
-                                    }, new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Log.d("Tag", "Ouch");
-                                        }
-                                    }) {
-                                        protected Map<String, String> getParams() {
-                                            Map<String, String> MyData = new HashMap<>();
-                                            MyData.put("two20", s);
-                                            return MyData;
-                                        }
-                                    };
-
-                                    StringRequest submit3 = new StringRequest(Request.Method.PUT, url3, new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response) {
-                                            Log.d("Works", "Submission worked");
-                                        }
-                                    }, new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Log.d("Tag", "Ouch");
-                                        }
-                                    }) {
-                                        protected Map<String, String> getParams() {
-                                            Map<String, String> MyData = new HashMap<>();
-                                            MyData.put("three20", t);
-                                            return MyData;
-                                        }
-                                    };
-
-                                    queue.add(submit1);
-                                    queue.add(submit2);
-                                    queue.add(submit3);
-                                } else if (gameSize == 50) {
-                                    String first = object.get("one50").getAsString();
-                                    String second = object.get("two50").getAsString();
-                                    String third = object.get("three50").getAsString();
-
-                                    String[] firstA = first.split(" ");
-                                    String[] secondA = second.split(" ");
-                                    String[] thirdA = third.split(" ");
-
-                                    int firstInt = Integer.parseInt(firstA[1]);
-                                    int secondInt = Integer.parseInt(secondA[1]);
-                                    int thirdInt = Integer.parseInt(thirdA[1]);
-                                    int[] scores = new int[] {firstInt, secondInt, thirdInt};
-
-                                    if (score > scores[0]) {
-                                        String temp1 = first;
-                                        String temp2 = second;
-                                        first = name.getText() + ": " + score;
-                                        second = temp1;
-                                        third = temp2;
-                                    } else if (score > scores[1]) {
-                                        String temp1 = second;
-                                        second = name.getText() + ": " + score;
-                                        third = temp1;
-                                    } else if (score > scores[2]) {
-                                        third = name.getText() + ": " + score;
-                                    }
-
-                                    String url1 = "https://illinoistrivia.firebaseio.com/scores/scoreList/one50";
-                                    String url2 = "https://illinoistrivia.firebaseio.com/scores/scoreList/two50";
-                                    String url3 = "https://illinoistrivia.firebaseio.com/scores/scoreList/three50";
-
-                                    final String f = first;
-                                    final String s = second;
-                                    final String t = third;
-
-                                    StringRequest submit1 = new StringRequest(Request.Method.PUT, url1, new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response) {
-                                            Log.d("Works", "Submission worked");
-                                        }
-                                    }, new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Log.d("Tag", "Ouch");
-                                        }
-                                    }) {
-                                        protected Map<String, String> getParams() {
-                                            Map<String, String> MyData = new HashMap<>();
-                                            MyData.put("one50", f);
-                                            return MyData;
-                                        }
-                                    };
-
-                                    StringRequest submit2 = new StringRequest(Request.Method.PUT, url2, new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response) {
-                                            Log.d("Works", "Submission worked");
-                                        }
-                                    }, new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Log.d("Tag", "Ouch");
-                                        }
-                                    }) {
-                                        protected Map<String, String> getParams() {
-                                            Map<String, String> MyData = new HashMap<>();
-                                            MyData.put("two50", s);
-                                            return MyData;
-                                        }
-                                    };
-
-                                    StringRequest submit3 = new StringRequest(Request.Method.PUT, url3, new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response) {
-                                            Log.d("Works", "Submission worked");
-                                        }
-                                    }, new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Log.d("Tag", "Ouch");
-                                        }
-                                    }) {
-                                        protected Map<String, String> getParams() {
-                                            Map<String, String> MyData = new HashMap<>();
-                                            MyData.put("three50", t);
-                                            return MyData;
-                                        }
-                                    };
-
-                                    queue.add(submit1);
-                                    queue.add(submit2);
-                                    queue.add(submit3);
-                                } else {
-                                    String first = object.get("oneAll").getAsString();
-                                    String second = object.get("twoAll").getAsString();
-                                    String third = object.get("threeAll").getAsString();
-
-                                    String[] firstA = first.split(" ");
-                                    String[] secondA = second.split(" ");
-                                    String[] thirdA = third.split(" ");
-
-                                    int firstInt = Integer.parseInt(firstA[1]);
-                                    int secondInt = Integer.parseInt(secondA[1]);
-                                    int thirdInt = Integer.parseInt(thirdA[1]);
-                                    int[] scores = new int[] {firstInt, secondInt, thirdInt};
-
-                                    if (score > scores[0]) {
-                                        String temp1 = first;
-                                        String temp2 = second;
-                                        first = name.getText() + ": " + score;
-                                        second = temp1;
-                                        third = temp2;
-                                    } else if (score > scores[1]) {
-                                        String temp1 = second;
-                                        second = name.getText() + ": " + score;
-                                        third = temp1;
-                                    } else if (score > scores[2]) {
-                                        third = name.getText() + ": " + score;
-                                    }
-
-                                    String url1 = "https://illinoistrivia.firebaseio.com/scores/scoreList/oneAll";
-                                    String url2 = "https://illinoistrivia.firebaseio.com/scores/scoreList/twoAll";
-                                    String url3 = "https://illinoistrivia.firebaseio.com/scores/scoreList/threeAll";
-
-                                    final String f = first;
-                                    final String s = second;
-                                    final String t = third;
-
-                                    StringRequest submit1 = new StringRequest(Request.Method.PUT, url1, new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response) {
-                                            Log.d("Works", "Submission worked");
-                                        }
-                                    }, new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Log.d("Tag", "Ouch");
-                                        }
-                                    }) {
-                                        protected Map<String, String> getParams() {
-                                            Map<String, String> MyData = new HashMap<>();
-                                            MyData.put("oneAll", f);
-                                            return MyData;
-                                        }
-                                    };
-
-                                    StringRequest submit2 = new StringRequest(Request.Method.PUT, url2, new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response) {
-                                            Log.d("Works", "Submission worked");
-                                        }
-                                    }, new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Log.d("Tag", "Ouch");
-                                        }
-                                    }) {
-                                        protected Map<String, String> getParams() {
-                                            Map<String, String> MyData = new HashMap<>();
-                                            MyData.put("twoAll", s);
-                                            return MyData;
-                                        }
-                                    };
-
-                                    StringRequest submit3 = new StringRequest(Request.Method.PUT, url3, new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response) {
-                                            Log.d("Works", "Submission worked");
-                                        }
-                                    }, new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            Log.d("Tag", "Ouch");
-                                        }
-                                    }) {
-                                        protected Map<String, String> getParams() {
-                                            Map<String, String> MyData = new HashMap<>();
-                                            MyData.put("threeAll", t);
-                                            return MyData;
-                                        }
-                                    };
-
-                                    queue.add(submit1);
-                                    queue.add(submit2);
-                                    queue.add(submit3);
-                                }
-
-                                Log.d("Tag", "String: " + response);
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
+                if (name.getText().equals("")) {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(EndScreen.this);
+                    alert.setMessage("Please enter a name!");
+                    alert.show();
+                } else {
+                    if (score > relaventScores[0]) {
+                        String temp1 = scoresArray[0];
+                        String temp2 = scoresArray[1];
+                        scoresArray[0] = name.getText() + ": " + score;
+                        scoresArray[1] = temp1;
+                        scoresArray[2] = temp2;
+                    } else if (score > relaventScores[1]) {
+                        String temp1 = scoresArray[1];
+                        scoresArray[1] = name.getText() + ": " + score;
+                        scoresArray[2] = temp1;
+                    } else if (score> relaventScores[2]) {
+                        scoresArray[2] = name.getText() + ": " + score;
                     }
-                });
 
-                // Add the request to the RequestQueue.
-                queue.add(stringRequest);
+                    if (gameSize == 10) {
+
+                    } else if (gameSize == 20) {
+
+                    } else if (gameSize == 50) {
+
+                    } else {
+
+                    }
+
+
+
+                }
             }
         });
 

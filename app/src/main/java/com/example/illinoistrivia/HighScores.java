@@ -52,7 +52,6 @@ public class HighScores extends AppCompatActivity {
         final TextView twoAll = findViewById(R.id.secondPlaceAll);
         final TextView threeAll = findViewById(R.id.thirdPlaceAll);
 
-
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="https://illinoistrivia.firebaseio.com/scores/scoreList.json";
