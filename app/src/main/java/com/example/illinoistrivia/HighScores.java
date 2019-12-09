@@ -63,7 +63,7 @@ public class HighScores extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        JsonObject object = new JsonObject();
+                        JsonObject object;
                         one10.setText("Response is: "+ response);
                         object = (JsonObject) parser.parse(response);
 

@@ -30,6 +30,7 @@ public class Game extends AppCompatActivity {
             out.putExtra("score", score);
             System.out.println("going to send out intent - Score = " + score);
             startActivity(out);
+            finish();
         } else {
             setContentView(R.layout.activity_game);
 
