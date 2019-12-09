@@ -311,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
         statePolitics.add(new Question("Who is the Secretary of State of Illinois?", "David Ralston", "Ned Lamont", "Michael Madigan", "Jesse White", 3));
         statePolitics.add(new Question("How many Illinois governors have been charged with crimes during or after their governorships?", "2", "8", "6", "4", 3));
         //6-10
-        statePolitics.add(new Question("What was Rod Blagojevich impeacehd for?", "Corruption", "Money Laundering", "DUI", "Affair", 1));
+        statePolitics.add(new Question("What was Rod Blagojevich impeached for?", "Corruption", "Money Laundering", "DUI", "Affair", 1));
         statePolitics.add(new Question("How many people are in the State House of Representatives?", "82", "243", "118", "108", 3));
         statePolitics.add(new Question("How manny people are in the State Senate", "8 ", "60", "100", "59", 4));
         statePolitics.add(new Question("What is the state capital of Illinois?", "Springfield", "Aurora", "Chicago", "Mundelein", 1));
@@ -326,6 +326,4 @@ public class MainActivity extends AppCompatActivity {
         }
         Collections.shuffle(gameList);
     }
-
-
 }
