@@ -23,6 +23,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor = "#13294B"
                 android:text="Choose the Number of Questions You Wish to Play With"/>
             <RadioButton
                 android:layout_width="wrap_content"
@@ -58,6 +59,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor = "#13294B"
                 android:text="Choose What Categories to Pick From"/>
             <CheckBox
                 android:layout_width="wrap_content"
