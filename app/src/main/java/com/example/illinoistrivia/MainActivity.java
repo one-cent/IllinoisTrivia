@@ -237,6 +237,12 @@ public class MainActivity extends AppCompatActivity {
         illinoisGeneral.add(new Question("Illinois has the [blank] largest state economy in the US:", "4th", "5th", "7th", "3rd", 2));
         illinoisGeneral.add(new Question("The Illinois state flag has which words on it?", "December 7, 1787", "In God We Trust", "State Sovereignty National Union", "United We Stand, Divided We Fall", 3));
         illinoisGeneral.add(new Question("The Illinois state flag has which animal on it?", "A Horse", "An Eagle", "A Snake", "An Elk", 2));
+        //11- 15
+        illinoisGeneral.add(new Question("In which city was the Ice Cream Sundae invented?", "Rosemont", "Evanston", "Rockford", "Gurnee", 2));
+        illinoisGeneral.add(new Question("Which Illinois Bakery is the largest in the world?", "Little Debbie", "Deer Field", "Nabisco", "None of the above", 3));
+        illinoisGeneral.add(new Question("Where in Illinois were Twinkies invented?", "Lake Forest", "Libertyville", "Chicago", "River Forest", 4));
+        illinoisGeneral.add(new Question("Approximately how much of Illinois' land is farmland?", "60%", "75%", "80%", "90%", 3));
+        illinoisGeneral.add(new Question("Wilmette Illinois is home to a large temple for which minorty religion?", "Jain", "Zoroastrian", "Baháʼí", "Pastafarian", 3));
     }
 
 
