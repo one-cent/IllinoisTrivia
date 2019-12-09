@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
         illinoisGeneral.add(new Question("Which Illinois Bakery is the largest in the world?", "Little Debbie", "Deer Field", "Nabisco", "None of the above", 3));
         illinoisGeneral.add(new Question("Where in Illinois were Twinkies invented?", "Lake Forest", "Libertyville", "Chicago", "River Forest", 4));
         illinoisGeneral.add(new Question("Approximately how much of Illinois' land is farmland?", "60%", "75%", "80%", "90%", 3));
-        illinoisGeneral.add(new Question("Wilmette Illinois is home to a large temple for which minorty religion?", "Jain", "Zoroastrian", "Baháʼí", "Pastafarian", 3));
+        illinoisGeneral.add(new Question("Wilmette Illinois is home to a large temple to which minority religion?", "Jain", "Zoroastrian", "Baháʼí", "Pastafarian", 3));
     }
 
 
